@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+extension Task {
+    
+    convenience init(name: String, notes: String? = nil, due: Date? = nil, isComplete: Bool, context: CoreDataStack.managedObjectContext) {
+        
+        self.init(context: context)
+        
+        self.name = name
+        self.
+        
+    }
+    
+}
