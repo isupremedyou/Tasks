@@ -7,15 +7,17 @@
 //
 
 import Foundation
+import CoreData
 
 extension Task {
     
-    convenience init(name: String, notes: String? = nil, due: Date? = nil, isComplete: Bool, context: CoreDataStack.managedObjectContext) {
+    convenience init(name: String, notes: String?, due: Date?, context: NSManagedObjectContext = CoreDataStack.managedObjectContext) {
         
         self.init(context: context)
         
         self.name = name
-        self.
+        self.notes = notes
+        self.due = due
         
     }
     
