@@ -11,7 +11,6 @@ import UIKit
 class ButtonTableViewCell: UITableViewCell {
 
     // MARK: - Constants & Variables
-    var task: Task?
     weak var delegate: ButtonTableViewCellDelegate?
     
     // MARK: - Outlets
@@ -53,7 +52,6 @@ extension ButtonTableViewCell {
     func update(withTask task: Task) {
         primaryLabel.text = task.name
         updateButton(task.isComplete)
-        self.task = task
     }
     
 }

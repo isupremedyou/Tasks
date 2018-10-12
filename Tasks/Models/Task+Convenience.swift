@@ -11,7 +11,7 @@ import CoreData
 
 extension Task {
     
-    convenience init(name: String, notes: String?, due: Date?, context: NSManagedObjectContext = CoreDataStack.managedObjectContext) {
+    convenience init(name: String, notes: String?, due: Date?, context: NSManagedObjectContext = CoreDataStack.context) {
         
         self.init(context: context)
         

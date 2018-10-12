@@ -14,11 +14,26 @@ class TaskController {
     // Shared Instance
     static var shared = TaskController()
     
-    // Shared Truth
-    var tasks: [Task] {
-        return fetchTasks()
-    }
+    let fetchedResultsController: NSFetchedResultsController<Task> = {
+        
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        let isCompleteSortDescriptor = NSSortDescriptor(key: "isComplete", ascending: true)
+        let dueSortDescriptor = NSSortDescriptor(key: "due", ascending: false)
+
+        request.sortDescriptors = [isCompleteSortDescriptor, dueSortDescriptor]
+        
+        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "isComplete", cacheName: nil)
+    }()
     
+    init() {
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error with initial fetch request: \(error.localizedDescription)")
+        }
+        
+    }
     
     // MARK: - CRUD Functions
     
@@ -46,7 +61,7 @@ class TaskController {
     
     func remove(task: Task) {
         
-        let moc = CoreDataStack.managedObjectContext
+        let moc = CoreDataStack.context
         
         moc.delete(task)
         
@@ -56,23 +71,13 @@ class TaskController {
     
     func saveToPersistentStore() {
         
-        let moc = CoreDataStack.managedObjectContext
+        let moc = CoreDataStack.context
         
         do {
             try moc.save()
         } catch let error {
             print("Error saving to CoreData persistence store \(error.localizedDescription)")
         }
-        
-    }
-   
-    func fetchTasks() -> [Task] {
-        
-        let moc = CoreDataStack.managedObjectContext
-        
-        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        return (try? moc.fetch(fetchRequest)) ?? []
         
     }
     

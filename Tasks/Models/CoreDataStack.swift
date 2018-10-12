@@ -23,5 +23,5 @@ struct CoreDataStack {
         return container
     }()
     
-    static var managedObjectContext: NSManagedObjectContext { return container.viewContext }
+    static var context: NSManagedObjectContext { return container.viewContext }
 }
