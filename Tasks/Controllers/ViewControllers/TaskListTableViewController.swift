@@ -15,9 +15,7 @@ class TaskListTableViewController: UITableViewController {
         super.viewDidLoad()
         
         TaskController.shared.fetchedResultsController.delegate = self
-
     }
-
 }
 
 // MARK: - Functions
@@ -31,14 +29,15 @@ extension TaskListTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = TaskController.shared.fetchedResultsController.sections else { return 0 }
         
+        guard let sections = TaskController.shared.fetchedResultsController.sections else { return 0 }
         let sectionInfo = sections[section]
         
         return sectionInfo.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonTableViewCell", for: indexPath)
             as? ButtonTableViewCell
             else { return UITableViewCell() }
@@ -52,6 +51,7 @@ extension TaskListTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       
         guard let sections = TaskController.shared.fetchedResultsController.sections else { return "No Section" }
         guard let sectionIndexTitle = sections[section].indexTitle else { return "No Section" }
         
@@ -62,8 +62,6 @@ extension TaskListTableViewController {
         } else {
             return "Complete"
         }
-        
-        
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -78,6 +76,7 @@ extension TaskListTableViewController {
     // Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
         guard let destinationVC = segue.destination as? TaskDetailTableViewController else { return }
         
         if segue.identifier == "toEditTask" {
@@ -88,7 +87,6 @@ extension TaskListTableViewController {
             destinationVC.task = task
             destinationVC.dueDateValue = task.due
         }
-        
     }
 }
 
@@ -104,9 +102,7 @@ extension TaskListTableViewController: ButtonTableViewCellDelegate {
         TaskController.shared.toggleIsCompleteFor(task: task)
         
         tableView.reloadRows(at: [indexPath], with: .none)
-        
     }
-    
 }
 
 extension TaskListTableViewController: NSFetchedResultsControllerDelegate {
@@ -140,7 +136,6 @@ extension TaskListTableViewController: NSFetchedResultsControllerDelegate {
             guard let indexPath = indexPath else { return }
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
-        
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
@@ -157,7 +152,5 @@ extension TaskListTableViewController: NSFetchedResultsControllerDelegate {
         case .update:
             break
         }
-    
     }
-    
 }

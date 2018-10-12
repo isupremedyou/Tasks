@@ -11,6 +11,7 @@ import UIKit
 class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Constants & Variables
+    
     var dueDateValue: Date?
     var task: Task? {
         didSet {
@@ -19,6 +20,7 @@ class TaskDetailTableViewController: UITableViewController {
     }
     
     // MARK: - Outlets
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
@@ -29,12 +31,11 @@ class TaskDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         
         dueDateTextField.inputView = dueDatePicker
-        
         updateViews()
-
     }
 
     // MARK: - Actions
+    
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
         guard let name = nameTextField.text, !name.isEmpty
@@ -50,31 +51,27 @@ class TaskDetailTableViewController: UITableViewController {
         }
         
         navigationController?.popViewController(animated: true)
-        
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        
+
         navigationController?.popViewController(animated: true)
-        
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         
         dueDateValue = dueDatePicker.date
         dueDateTextField.text = dueDateValue?.stringValue()
-        
     }
     
     @IBAction func userTappedView(_ sender: UITapGestureRecognizer) {
         
         self.view.endEditing(true)
-        
     }
-    
 }
 
 // MARK: - Functions
+
 extension TaskDetailTableViewController {
     
     func updateViews() {
@@ -86,7 +83,6 @@ extension TaskDetailTableViewController {
         notesTextView.text = task?.notes
         
     }
-    
 }
 
 extension TaskDetailTableViewController: UITextViewDelegate, UITextFieldDelegate { }

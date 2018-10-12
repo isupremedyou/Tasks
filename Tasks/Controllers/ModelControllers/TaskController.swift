@@ -32,7 +32,6 @@ class TaskController {
         } catch {
             print("Error with initial fetch request: \(error.localizedDescription)")
         }
-        
     }
     
     // MARK: - CRUD Functions
@@ -42,7 +41,6 @@ class TaskController {
         let _ = Task(name: name, notes: notes, due: due)
         
         saveToPersistentStore()
-        
     }
     
     func update(task: Task, name: String, notes: String?, due: Date?) {
@@ -52,7 +50,6 @@ class TaskController {
         task.due = due
         
         saveToPersistentStore()
-        
     }
     
     func toggleIsCompleteFor(task: Task) {
@@ -66,7 +63,6 @@ class TaskController {
         moc.delete(task)
         
         saveToPersistentStore()
-        
     }
     
     func saveToPersistentStore() {
@@ -78,7 +74,5 @@ class TaskController {
         } catch let error {
             print("Error saving to CoreData persistence store \(error.localizedDescription)")
         }
-        
     }
-    
 }
